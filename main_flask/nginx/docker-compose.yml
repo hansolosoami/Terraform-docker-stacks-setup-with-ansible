@@ -8,6 +8,11 @@ services:
       - ./conf.d:/etc/nginx/conf.d
     networks:
       - web_nw
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
 networks:
   web_nw:

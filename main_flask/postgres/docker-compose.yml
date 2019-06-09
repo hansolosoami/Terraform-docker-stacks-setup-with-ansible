@@ -8,7 +8,11 @@ services:
       - env_file
     networks:
       - db_nw
-
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
 networks:
   db_nw:
