@@ -1,0 +1,48 @@
+version: "3"
+services:
+   app1:
+    image: pushpendersingh/nodejs_project1
+    container_name: nodejs1 
+    depends_on:
+      - postgres
+    ports:
+      - "3001:3000"
+      - "9230:9229"
+    environment:
+      NODE_ENV: "testing" 
+    volumes:
+      - .:/home/app/
+      - /home/app/node_modules
+
+   app2:
+    image: pushpendersingh/nodejs_project1
+    container_name: nodejs2
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    environment:
+      NODE_ENV: "production"
+    volumes:
+      - .:/home/app/
+      - /home/app/node_modules
+
+   webserver:
+    image: nginx:mainline-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d
+    depends_on:
+      - nodejs1
+      - nodejs2
+    networks:
+      - app-network
+ 
+   postgres:
+    image: postgres:11.2-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
