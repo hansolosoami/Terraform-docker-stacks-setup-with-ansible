@@ -1,0 +1,29 @@
+---                  
+ - hosts: all
+   remote_user: ubuntu
+   become: true 
+   tasks:            
+
+    - name: something is happening!!!!
+      command: "sudo apt-get update -y --allow-unauthenticated"
+      ignore_errors: yes
+
+    - name: something is happening!!!!
+      command: "sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y"
+      ignore_errors: yes
+
+    - name: something is happening!!!!
+      command: "sudo add-apt-repository 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable'"
+      ignore_errors: yes
+
+    - name: something is happening!!!!
+      command: "sudo apt-get update -y --allow-unauthenticated"
+      ignore_errors: yes
+
+    - name: something is happening!!!!
+      command: "sudo apt install docker-ce -y --allow-unauthenticated"
+      ignore_errors: yes
+
+    - name: something is happening!!!!
+      command: "sudo systemctl enable --now docker"
+      ignore_errors: yes

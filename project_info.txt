@@ -1,0 +1,28 @@
+- Final Project (3 days).
+	 ***This will be done on your own without any external help***. you are free to build your own docker images or use ready made ones. 
+
+    	-Create a docker swarm cluster of 5 services
+
+        - Nginx, Two app servers (either Python flask or nodejs based api), Postgresql database, pgbouncer. 		
+	Remember that flask/nodejs will connect to database through pgbouncer
+        
+	- Figure out the right configuration for each
+   
+	 - Each Docker swarm image will have an application that is managed by 
+	[supervisord](https://	docs.docker.com/config/containers/multi-service_container/)
+
+        - For app server, you will use the **SAME** source code for both "testing" and "production", but they will work differently based on some environment variable
+        
+	- To achieve this, you will have two different supervisord configs - one for testing and one for production.
+ 	   - Logging will be done using Logspout to Logdna
+ 	
+ 	  - nginx will be running in host mode on port 80
+ 	
+	   - app images (python or nodejs) will be scaled to two
+           - You will do this through 3 docker swarm stacks - nginx will be one stack, python/nodejs will be another stack and postgresql+pgbouncer will be third stack
+           - they will communicate with each other using overlay network
+    
+           - Show how you will redeploy nginx and python/nodejs if you have to make any changes to the config/code (thereby rebuilding the docker image)
+
+	        - try rolling deploys
+		    - Deploy this whole system on a Terraform based cloud stack of two instances. You are free to use Cloud Build and Container Registry tools if you want. 

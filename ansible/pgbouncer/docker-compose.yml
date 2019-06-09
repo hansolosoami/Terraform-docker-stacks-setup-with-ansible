@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+  pgbouncer:
+    image: brainsam/pgbouncer:1.7.2
+    environment:
+      DB_HOST: flaskapp_db
+      DB_USER: postgres           # define credentials
+      DB_PASSWORD: postgres       # define credentials
+      DB_port: 5432               # define database
+    ports:
+      - 6432:6432
+    networks:
+      - db_nw                 # PgBouncer port
+
+networks:
+  db_nw:
+    external:
+      name: db_nw

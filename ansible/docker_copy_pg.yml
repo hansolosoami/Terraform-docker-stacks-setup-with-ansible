@@ -1,0 +1,16 @@
+---                  
+ - hosts: managers
+   remote_user: ubuntu
+   become: true 
+   tasks:
+    - name: making directory
+      command: mkdir ~/post_pgbounce              
+ 
+    - name: Copy to remote 
+      copy:
+       src: /home/mani/project1/ansible/post_pgbounce/docker-compose.yml
+       dest: ~/post_pgbounce/docker-compose.yml
+
+    - name: deploying the docker stack
+      command: "sudo docker stack deploy --compose-file ~/post_pgbounce/docker-compose.yml "
+    

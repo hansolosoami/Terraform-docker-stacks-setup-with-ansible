@@ -1,0 +1,34 @@
+---                  
+ - hosts: all
+   remote_user: ubuntu
+   become: true 
+   tasks:           
+    - name: something is happening!!!!
+      command: "sudo apt install python-apt -y"
+      ignore_errors: yes
+
+    - name: something is happening!!!!
+      command: "sudo apt install python-pip -y"
+      ignore_errors: yes
+      
+    - name: something is happening!!!!
+      command: "pip install docker "
+      ignore_errors: yes
+
+
+ - hosts: managers   
+   remote_user: ubuntu  
+   become: true        
+   tasks:
+    - name: creating overlay network backend
+      docker_network:
+       name: db_nw  
+       driver: overlay
+       attachable: true
+
+    - name: creating overlay network frontend 
+      docker_network:
+       name: web_nw
+       driver: overlay
+       attachable: true
+                      
