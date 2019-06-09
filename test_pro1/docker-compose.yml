@@ -2,7 +2,6 @@ version: "3"
 services:
    app1:
     image: pushpendersingh/nodejs_project1
-    container_name: nodejs1 
     depends_on:
       - postgres
     ports:
@@ -16,7 +15,6 @@ services:
 
    app2:
     image: pushpendersingh/nodejs_project1
-    container_name: nodejs2
     depends_on:
       - postgres
     ports:
@@ -30,17 +28,16 @@ services:
 
    webserver:
     image: nginx:mainline-alpine
-    container_name: webserver
-    restart: unless-stopped
     ports:
       - "80:80"
     volumes:
       - ./nginx-conf:/etc/nginx/conf.d
     depends_on:
-      - nodejs1
-      - nodejs2
+      - app1
+      - app2
  
    postgres:
     image: postgres:11.2-alpine
     environment:
       POSTGRES_PASSWORD: postgres
+

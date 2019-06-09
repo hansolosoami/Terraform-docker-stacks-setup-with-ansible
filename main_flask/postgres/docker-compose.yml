@@ -1,0 +1,18 @@
+version: '3'
+services:
+  db:
+    image: "postgres:9.6.5"
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+    env_file:
+      - env_file
+    networks:
+      - db_nw
+
+
+networks:
+  db_nw:
+    external:
+      name: db_nw
+volumes:
+  dbdata:

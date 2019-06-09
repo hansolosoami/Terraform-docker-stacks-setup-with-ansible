@@ -1,0 +1,15 @@
+version: '3'                                                                                                                            
+services:
+ nginx:
+    image: "nginx:1.13.5"
+    ports:
+      - "80:80"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    networks:
+      - web_nw
+
+networks:
+  web_nw:
+    external:
+      name: web_nw

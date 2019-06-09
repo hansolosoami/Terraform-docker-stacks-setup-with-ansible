@@ -1,0 +1,38 @@
+version: '3'                                                                                                                            
+services:
+  flaskapp1:
+    image: pushpendersingh/flask_python 
+    env_file:
+      - env_file
+    environment:
+      build_env: testing
+    ports:
+      - "5091:5091"
+    volumes:
+      - .:/opt/services/flaskapp/src
+    networks:
+      - db_nw
+      - web_nw
+
+  flaskapp2:
+    image: pushpendersingh/flask_python 
+    env_file:
+      - env_file
+    environment:
+      build_env: production
+    ports:
+      - "5090:5090"
+    volumes:
+      - .:/opt/services/flaskapp/src
+    networks:
+      - db_nw
+      - web_nw
+      
+networks:
+  db_nw:
+    external:
+      name: db_nw
+  web_nw:
+    external:
+      name: web_nw
+
