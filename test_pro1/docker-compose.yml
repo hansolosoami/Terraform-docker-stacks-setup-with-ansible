@@ -39,8 +39,6 @@ services:
     depends_on:
       - nodejs1
       - nodejs2
-    networks:
-      - app-network
  
    postgres:
     image: postgres:11.2-alpine
