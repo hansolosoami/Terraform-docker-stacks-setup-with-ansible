@@ -1,16 +1,17 @@
 version: '3.1'
 services:
   pgbouncer:
-    image: brainsam/pgbouncer:1.7.2
-    environment:
-      DB_HOST: db
-      DB_USER: postgres           # define credentials
-      DB_PASSWORD: postgres       # define credentials
-      DB_PORT: 5432               # define database
+    image: "docker.io/pushpendersingh/pgbouncer_update1"
     ports: 
-      - 6432:6432                # PgBouncer port
+      - 5439:5439
+    environment:
+     DB_HOST: "localhost"
+     DB_USER: "postgres"
+     DB_PORT: "5432"
+     DB_PASSWORD: "postgres"
+     LISTEN_PORT: "5439"
     networks:
-      - db_nw                 # PgBouncer port
+      - db_nw        
 
 networks:
   db_nw:

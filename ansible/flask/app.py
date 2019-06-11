@@ -22,7 +22,7 @@ def signup():
 
 @app.route("/success")
 def success():
-    return "Thank you for signing up!"
+    return render_template('success.html')
 
 if __name__ == '__main__':
     init_db()
