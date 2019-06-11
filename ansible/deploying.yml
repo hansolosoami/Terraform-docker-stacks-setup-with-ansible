@@ -1,0 +1,71 @@
+---
+ - hosts: managers   
+   remote_user: ubuntu  
+   become: true        
+   tasks:
+    - name: making directories
+      command: mkdir ./postgres
+      ignore_errors: yes
+
+    - name: copying files postgres
+      copy:
+       src: ./postgres/
+       dest: ./postgres/
+
+    - name: making directories
+      command: mkdir ./pgbouncer
+      ignore_errors: yes
+
+    - name: copying files pgbouncer
+      copy:
+       src: ./pgbouncer/
+       dest: ./pgbouncer/
+
+    - name: making directories                                 
+      command: mkdir ./flask
+      ignore_errors: yes
+                                   
+    - name: copying files flask
+      copy:                       
+       src: ./flask/             
+       dest: ./flask/   
+     
+    - name: making directories                                 
+      command: mkdir ./nginx
+      ignore_errors: yes
+                                   
+    - name: copying files nginx
+      copy:                       
+       src: ./nginx/             
+       dest: ./nginx/   
+    
+    - name: making directories                                 
+      command: mkdir ./logspout
+      ignore_errors: yes
+
+    - name: copying files logspout
+      copy:                       
+       src: ./logspout/             
+       dest: ./logspout/  
+    
+    - name: deploying logspout
+      command: "sudo docker stack deploy --compose-file ./logspout/docker-compose.yml logdna"
+      ignore_errors: yes
+
+    - name: deploying postgres
+      command: "sudo docker stack deploy --compose-file ./postgres/docker-compose.yml postgres"
+      ignore_errors: yes
+    
+    - name: deploying pgbouncer
+      command: "sudo docker stack deploy --compose-file ./pgbouncer/docker-compose.yml pgbouncer"
+      ignore_errors: yes
+
+    - name: deploying app_server
+      command: "sudo docker stack deploy --compose-file ./flask/docker-compose.yml  app_server"
+      ignore_errors: yes
+
+    - name: deploying web_server
+      command: "sudo docker stack deploy --compose-file ./nginx/docker-compose.yml web_server"
+      ignore_errors: yes
+
+

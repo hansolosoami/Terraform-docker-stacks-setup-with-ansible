@@ -1,16 +1,14 @@
-version: "3"
-networks:
-  swarm1:
+version: '3'
 services:
   logspout:
     image: gliderlabs/logspout:latest
     networks:
-      - swarm1
+      - db_nw
+      - web_nw
     volumes:
-      - /etc/hostname:/etc/host_hostname:ro
       - /var/run/docker.sock:/var/run/docker.sock
     command:
-      syslog://syslog-a.logdna.com:26496
+      syslog://syslog-a.logdna.com:39149
     deploy:
       mode: global
       resources:
@@ -20,5 +18,11 @@ services:
         reservations:
           cpus: '0.10'
           memory: 128M
-  
-    
+
+networks:
+  db_nw:
+    external:
+      name: db_nw
+  web_nw:
+    external:
+      name: web_nw
